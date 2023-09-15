@@ -1,12 +1,3 @@
-VERSION 1.0 CLASS
-BEGIN
-  MultiUse = -1  'True
-END
-Attribute VB_Name = "ThisWorkbook"
-Attribute VB_GlobalNameSpace = False
-Attribute VB_Creatable = False
-Attribute VB_PredeclaredId = True
-Attribute VB_Exposed = True
 Sub CopyDataToDailySummaryWithEndingBalanceAndTitle()
     Dim ledgerWorkbook As Workbook
     Dim ledgerSheet As Worksheet
@@ -45,7 +36,7 @@ Sub CopyDataToDailySummaryWithEndingBalanceAndTitle()
     Dim debitTotal As Double
     Dim creditTotal As Double
     
-    ' Clear previous data and ending balance in the daily summary sheet
+    ' Clear previous data in the daily summary sheet
     summarySheet.Cells.Clear
     
     ' Add the title at the top of the sheet in large, bold text
@@ -53,17 +44,25 @@ Sub CopyDataToDailySummaryWithEndingBalanceAndTitle()
     summarySheet.Cells(1, "A").Font.Size = 18 ' Set the font size
     summarySheet.Cells(1, "A").Font.Bold = True ' Make the text bold
     
-    ' I be addin in the date n such here
-    summarySheet.Cells(2, "A").Value = Date
+    ' Add the current date in cell 2A with the same font size and bold formatting
+    summarySheet.Cells(2, "A").Value = currentDate
     summarySheet.Cells(2, "A").Font.Size = 18 ' Set the font size
     summarySheet.Cells(2, "A").Font.Bold = True ' Make the text bold
+    
+    ' Add the current date and starting balance in C2
+    summarySheet.Cells(2, "C").Value = "Starting Balance"
+    summarySheet.Cells(2, "C").Font.Bold = True ' Make the text bold
+    summarySheet.Cells(2, "D").Value = GetStartingBalance(ledgerSheet, currentDate)
+    summarySheet.Cells(2, "D").NumberFormat = "$#,##0.00" ' Format as currency with two decimal places
+    summarySheet.Cells(2, "D").Font.Color = RGB(0, 128, 0) ' Set font color to green
     
     ' Set up table headers
     summarySheet.Cells(3, "A").Value = "Date"
     summarySheet.Cells(3, "B").Value = "Description"
     summarySheet.Cells(3, "C").Value = "Debit"
     summarySheet.Cells(3, "D").Value = "Credit"
-    
+    summarySheet.Cells(3, "E").Value = "Ending Balance"
+
     ' Add space between the title and the table
     summaryRow = 4 ' Start from row 4 for the table
     
@@ -88,24 +87,19 @@ Sub CopyDataToDailySummaryWithEndingBalanceAndTitle()
         End If
     Next ledgerRow
     
-    ' Calculate the ending balance as the sum of debits plus credits
+    ' Calculate the ending balance as the sum of starting balance, debits, and credits
     Dim endingBalance As Double
-    endingBalance = debitTotal - creditTotal
-    
-    ' Add the ending balance header in cell E1
-    summarySheet.Cells(3, "E").Value = "Ending Balance"
-    summarySheet.Cells(3, "E").Font.Bold = True ' Make the header bold
+    endingBalance = GetStartingBalance(ledgerSheet, currentDate) + debitTotal - creditTotal
     
     ' Add the ending balance in cell E at the bottom and its red if negative
     summarySheet.Cells(summaryRow + 1, "E").Value = endingBalance
-summarySheet.Cells(summaryRow + 1, "E").NumberFormat = "$#,##0.00" ' Format as currency with two decimal places
-summarySheet.Cells(summaryRow + 1, "E").Font.Bold = True
+    summarySheet.Cells(summaryRow + 1, "E").NumberFormat = "$#,##0.00" ' Format as currency with two decimal places
+    summarySheet.Cells(summaryRow + 1, "E").Font.Bold = True
 
-' Check if endingBalance is negative and apply red font color if true
-If endingBalance < 0 Then
-    summarySheet.Cells(summaryRow + 1, "E").Font.Color = RGB(255, 0, 0) ' Set font color to red
-End If
-
+    ' Check if endingBalance is negative and apply red font color if true
+    If endingBalance < 0 Then
+        summarySheet.Cells(summaryRow + 1, "E").Font.Color = RGB(255, 0, 0) ' Set font color to red
+    End If
     
     ' Add the ending balance description at the bottom
     summarySheet.Cells(summaryRow + 1, "A").Value = "Ending Balance"
@@ -114,5 +108,24 @@ End If
     ' Apply table formatting to the data (optional)
     summarySheet.ListObjects.Add(xlSrcRange, summarySheet.Range("A3:E" & summaryRow + 1), , xlYes).TableStyle = "TableStyleMedium2"
 End Sub
+
+Function GetStartingBalance(ledgerSheet As Worksheet, currentDate As Date) As Double
+    Dim ledgerLastRow As Long
+    Dim ledgerRow As Long
+    
+    ' Find the last row in the ledger sheet
+    ledgerLastRow = ledgerSheet.Cells(ledgerSheet.Rows.Count, "A").End(xlUp).Row
+    
+    ' Find the starting balance based on the previous date
+    For ledgerRow = ledgerLastRow To 2 Step -1
+        If DateValue(ledgerSheet.Cells(ledgerRow, "A").Value) < currentDate Then
+            GetStartingBalance = ledgerSheet.Cells(ledgerRow, "E").Value
+            Exit Function
+        End If
+    Next ledgerRow
+    
+    ' Return 0 if no starting balance is found
+    GetStartingBalance = 0
+End Function
 
 
