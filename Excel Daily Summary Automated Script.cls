@@ -56,6 +56,25 @@ Sub CopyDataToDailySummaryWithEndingBalanceAndTitle()
     summarySheet.Cells(2, "D").NumberFormat = "$#,##0.00" ' Format as currency with two decimal places
     summarySheet.Cells(2, "D").Font.Color = RGB(0, 128, 0) ' Set font color to green
     
+    ' Adding a double check to the bottom
+    summarySheet.Cells(27, "A").Value = "Daily Collections Double Check"
+    summarySheet.Cells(27, "A").Font.Size = 14 ' Set the font size
+    summarySheet.Cells(27, "A").Font.Bold = True ' Make the text bold
+    summarySheet.Cells(27, "A").Font.Italic = True
+
+    ' Set the values for the cells
+    summarySheet.Cells(28, "A").Value = "County"
+    summarySheet.Cells(29, "A").Value = "Tax Claim"
+    summarySheet.Cells(30, "A").Value = "County 2"
+    summarySheet.Cells(31, "A").Value = "County 3"
+    summarySheet.Cells(32, "A").Value = "Total"
+    
+    ' Apply underline to the cell containing "County 3"
+    summarySheet.Cells(31, "A").Font.Underline = xlUnderlineStyleSingle
+    
+    ' Format cells in column B as Currency
+    summarySheet.Range("B28:B32").NumberFormat = "$#,##0.00"
+    
     ' Set up table headers
     summarySheet.Cells(3, "A").Value = "Date"
     summarySheet.Cells(3, "B").Value = "Description"
