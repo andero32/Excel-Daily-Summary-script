@@ -19,11 +19,11 @@ Open the Excel workbook with the macro installed.
 Click the button 💸 icon in the top right
 This will pull data from your main ledger and summarize only daily activity. This is useful for daily report automation. 
 
-#main workbook where data pulls from below 
-#⬇️
+#main workbook where data pulls from below ⬇️
+
 ![image](https://github.com/andero32/Excel-Daily-Summary-script/assets/130467114/4cd4c67f-6919-48cf-9334-74bfa8a9e844)
 
-#Automated report that generates 
-#⬇️
+#Automated report that generates ⬇️
+
 ![image](https://github.com/andero32/Excel-Daily-Summary-script/assets/130467114/5f554a91-7110-4a09-8f79-a87ebc6d8720)
 
