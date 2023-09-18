@@ -21,7 +21,7 @@ This will pull data from your main ledger and summarize only daily activity. Thi
 
 ### *main workbook where data pulls from below* ⬇️
 
-![image](https://github.com/andero32/Excel-Daily-Summary-script/assets/130467114/4cd4c67f-6919-48cf-9334-74bfa8a9e844)
+![image](https://github.com/andero32/Excel-Daily-Summary-script/assets/130467114/10eddda0-1f78-4b35-88ec-3ab751c313f0)
 
 ### *Automated report that generates* ⬇️
 
