@@ -7,7 +7,7 @@ To add this macro onto your workbook, follow these steps:
 Open Microsoft Excel.
 Press Alt + F11 to open the Visual Basic Editor.
 In the Editor, go to Insert > Module to create a new module.
-Copy and paste the code from the DailySummary.cls file (below this readme.md) into the new module.
+Copy and paste the code from the Excel Daily Summary Automated Script.cls file (below this readme.md) into the new module.
 Save the macro and return to the Excel workbook.
 Edit the core code to fit your specific General Ledger information. Images and macro details are just examples - feel free to edit to personalize.
 Click the button to run the macro.
