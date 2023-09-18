@@ -16,7 +16,7 @@ Click the button to run the macro.
 To use the macro, follow these steps:
 
 Open the Excel workbook with the macro installed.
-Click the button 💸 icon in the top right
+Click the money 💸 icon in the top right
 This will pull data from your main ledger and summarize only daily activity. This is useful for daily report automation. 
 
 ### *main workbook where data pulls from below* ⬇️
