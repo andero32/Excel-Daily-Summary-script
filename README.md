@@ -1,3 +1,5 @@
+# DID I EVER TELL YOU I WAS 2.3K RATED IN WOTLK?
+
 # 💹 Automated Daily Summary / Automate excel reports 💹
 📈 Excel script that pulls current date data daily from a ongoing / year long ledger. Useful for the automation of creating daily reports. 📈
 
